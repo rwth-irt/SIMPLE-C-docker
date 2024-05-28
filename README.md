@@ -1,4 +1,4 @@
-# Lidar driver in ROS using Docker
+# Lidar driver/calibration in ROS using Docker
 
 ## Installation
 - Install Docker. (Or an alternative such as podman. However, all following commands are given for Docker.)
@@ -6,6 +6,7 @@
 
 ## Building docker container
 - Ensure you have access to the internet.
+- If you want to add to add further ROS packages, e.g. the calibration tool, put the ready-to-build package directories into the `files/ros_pkgs/` directory. They will be pulled into the docker image and built as well.
 - Run `sudo docker build --tag lidar ./build/` (This will build an image based on the instructions in the Dockerfile)
 
 ## Host Connection Setup
