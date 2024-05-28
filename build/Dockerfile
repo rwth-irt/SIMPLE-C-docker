@@ -17,6 +17,7 @@ RUN git clone https://github.com/RoboSense-LiDAR/rslidar_sdk.git
 RUN git clone https://github.com/RoboSense-LiDAR/rslidar_msg.git
 # instead of editing CMakeLists, we use a modified copy. (Which might eventually be outdated!)
 COPY ./files/CMakeLists.txt ./rslidar_sdk/
+COPY ./files/start.py ./rslidar_sdk/launch/
 WORKDIR rslidar_sdk
 RUN git submodule init && \
     git submodule update && \
