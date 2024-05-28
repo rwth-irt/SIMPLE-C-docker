@@ -1,6 +1,6 @@
 # based on https://hub.docker.com/_/ros/
 
-FROM ros:noetic-ros-base
+FROM ros:humble-ros-base
 
 # apply Robosense Lidar SDK installation, see https://github.com/RoboSense-LiDAR/rslidar_sdk
 # we use the "compile directly" variant:
@@ -15,6 +15,7 @@ RUN apt-get update && \
 # Install RSLidar
 WORKDIR /robosense/src
 RUN git clone https://github.com/RoboSense-LiDAR/rslidar_sdk.git
+RUN git clone https://github.com/RoboSense-LiDAR/rslidar_msg.git
     
 # TODO get which sensors to build for, optimally avoiding to rebuild on every change!!
 VOLUME /robosense/src/rslidar_sdk/config/
@@ -23,11 +24,11 @@ COPY ./files/CMakeLists.txt ./rslidar_sdk/
 WORKDIR rslidar_sdk
 RUN git submodule init && \
     git submodule update && \
-    mv package_ros1.xml package.xml
+    mv package_ros2.xml package.xml
 
 WORKDIR /robosense
 # run catkin make with ROS sourced
-RUN /bin/bash -c 'source /opt/ros/$ROS_DISTRO/setup.bash --; catkin_make'
+RUN /bin/bash -c 'source /opt/ros/$ROS_DISTRO/setup.bash --; colcon build'
 
 COPY ./files/entrypoint.sh /
 # overwrite entrypoint of ROS image to also source the rslidar sdk
