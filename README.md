@@ -21,7 +21,7 @@
 # Running the container with volume
 - Ensure that a valid `config.yaml` file is supplied in the `./config/` directory (we use the volume mount to share data between host and docker filesystem)
 - Run the container (This will map port 5599 and 4499 from host machine to port 4499 and 5599 in the docker container using UDP): 
-`sudo docker run --name lidar1 -p 5599:5599/udp -p 4499:4499/udp --volume ./config:/robosense/src/rslidar_sdk/config/:ro lidar`.
+`sudo docker run --name lidar1 -p 5599:5599/udp -p 4499:4499/udp --volume ./config:/ROS_WORKSPACE/rslidar_pkgs/rslidar_sdk/config/:ro lidar`.
     - Make sure that the port numbers are correct: The syntax is `-p <HOST_PORT>:<TARGET_PORT>/udp`.
     - You need one forwarded port per sensor.
     - `<HOST_PORT>` should be known from the Lidar config (which is flashed to their memory, see labels on the sensor). It can also be found using `tcpdump` or Wireshark.

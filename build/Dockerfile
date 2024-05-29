@@ -37,6 +37,5 @@ RUN /bin/bash -c 'source /opt/ros/$ROS_DISTRO/setup.bash --; colcon build --pack
 COPY ./files/entrypoint.sh /
 # overwrite entrypoint of ROS image to also source our workspace
 ENTRYPOINT ["/entrypoint.sh"]
-VOLUME /ROS_WORKSPACE/src/rslidar_sdk/config/
 # launch ros package
 CMD ["ros2", "launch", "rslidar_sdk", "start.py"]
