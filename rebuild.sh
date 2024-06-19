@@ -14,6 +14,10 @@ then
     echo "Please set the REPO_DIR variable to the top level directory of the online calibration git repo!"
     exit 1
 fi
+if [ -z "$DATA_DIR" ]
+then
+    echo "If you want a local directory to be mounted to /DATA in docker, set the DATA_DIR environment variable."
+fi
 ROS_PACKAGE_PATH_IN_REPO="online_calibration"  # Adapt to current online calibration repo structure
 
 
@@ -36,3 +40,4 @@ then
 fi 
 # sudo docker run --rm --name lidar1 -p 5599:5599/udp -p 4499:4499/udp $DATA_VOLUME_SWITCH --volume ./config:/ROS_WORKSPACE/rslidar_pkgs/rslidar_sdk/config/:ro -it lidar bash
 sudo   docker run --rm --name lidar1 --net host                        $DATA_VOLUME_SWITCH --volume ./config:/ROS_WORKSPACE/rslidar_pkgs/rslidar_sdk/config/:ro -it lidar bash
+# sudo docker run --rm --name lidar1 -p 6789:6789                      $DATA_VOLUME_SWITCH --volume ./config:/ROS_WORKSPACE/rslidar_pkgs/rslidar_sdk/config/:ro -it lidar bash

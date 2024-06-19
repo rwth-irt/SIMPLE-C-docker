@@ -26,7 +26,9 @@ WORKDIR /ROS_WORKSPACE
 RUN /bin/bash -c 'source /opt/ros/$ROS_DISTRO/setup.bash --; colcon build'
 
 # Install further ROS packages (and possibly their dependencies)
-RUN apt-get install -y python3-sklearn ros-$ROS_DISTRO-sensor-msgs-py
+RUN apt-get update && \
+    apt-get install --no-install-recommends -y python3-pip python3-sklearn ros-$ROS_DISTRO-sensor-msgs-py
+RUN pip install websockets
 ADD ./files/ros_pkgs/ /ROS_WORKSPACE/src/
 
 # Build those packages

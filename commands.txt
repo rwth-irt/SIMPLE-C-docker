@@ -1,6 +1,6 @@
-COMMANDS FOR TESTING IN DOCKER CONTAINER (started via rebuild.sh)
-----------------------------------------------------------------------
-The docker container should have the label lidar1 and should be running.
+COMMANDS FOR TESTING IN DOCKER CONTAINER
+----------------------------------------
+The docker container should have the label lidar1 and should be running. (Run rebuild.sh to build and run!)
 
 
 
