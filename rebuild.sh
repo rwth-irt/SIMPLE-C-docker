@@ -36,7 +36,7 @@ sudo docker build --tag lidar ./build  # normal build with network
 # DOCKER RUN
 if [ -n "$DATA_DIR" ]
 then
-    DATA_VOLUME_SWITCH="--volume $DATA_DIR:/DATA:ro"
+    DATA_VOLUME_SWITCH="--volume $DATA_DIR:/DATA"
 fi 
 # sudo docker run --rm --name lidar1 -p 5599:5599/udp -p 4499:4499/udp $DATA_VOLUME_SWITCH --volume ./config:/ROS_WORKSPACE/rslidar_pkgs/rslidar_sdk/config/:ro -it lidar bash
 sudo   docker run --rm --name lidar1 --net host                        $DATA_VOLUME_SWITCH --volume ./config:/ROS_WORKSPACE/rslidar_pkgs/rslidar_sdk/config/:ro -it lidar bash
