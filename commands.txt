@@ -6,7 +6,7 @@ The docker container should have the label lidar1 and should be running. (Run re
 
 RUN CALIBRATION
 -------------------------------
-sudo docker exec -it lidar1 bash -c 'source /opt/ros/$ROS_DISTRO/setup.bash && source /ROS_WORKSPACE/install/setup.bash && ros2 run online_calibration main --ros-args --params-file /ROS_WORKSPACE/src/online_calibration/default_parameters.yaml -p sensor_pairs:="/rslidar_points_l,/rslidar_points_r"'
+sudo docker exec -it lidar1 bash -c 'source /opt/ros/$ROS_DISTRO/setup.bash && source /ROS_WORKSPACE/install/setup.bash && ros2 run online_calibration main --ros-args --params-file /ROS_WORKSPACE/src/online_calibration/default_parameters.yaml -p sensor_pairs:="/rslidar_points_l,/rslidar_points_r" -p main_sensor:="/rslidar_points_l"'
 
 
 

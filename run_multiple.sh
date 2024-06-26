@@ -12,8 +12,8 @@ rosbags=(
 paramfiles=(
     "/DATA/parameters/normal.yaml"
     "/DATA/parameters/normal_pt_number.yaml"
-    "/DATA/parameters/no_weights.yaml"
-    "/DATA/parameters/pt_number.yaml"
+    #"/DATA/parameters/no_weights.yaml"
+    #"/DATA/parameters/pt_number.yaml"
 )
 outputprefix="$HOME/CALIB_OUTPUT"
 
@@ -33,9 +33,7 @@ do
         # play rosbag
         echo "    PLAYING ROSBAG"
         sudo docker exec lidar1 bash -c 'source /opt/ros/$ROS_DISTRO/setup.bash && '"ros2 bag play $rosbag" &>/dev/null
-        echo "    ROSBAG DONE, COPY OUTPUT, PRESS RETURN, PASTE OUTPUT AND EXIT VIM"
-        read
-        vim $output_name
+        vim -c "echo 'ROSBAG DONE, PASTE OUTPUT HERE, THEN SAVE AND EXIT VIM'" $output_name
         echo "    KILL THE CALIBRATOR, PRESS ENTER"
         read
     done

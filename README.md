@@ -12,6 +12,7 @@
 - Ensure you have access to the internet.
 - If you want to add to add further ROS packages, e.g. the calibration tool, put the ready-to-build package directories into the `files/ros_pkgs/` directory. They will be pulled into the docker image and built as well.
 - Run `sudo docker build --tag lidar ./build/` (This will build an image based on the instructions in the Dockerfile)
+- If APT errors (especially resolving URLs) occur during build, try to update & upgrade APT on the *host* system.
 
 ### Running the container
 - Ensure that a valid `config.yaml` file is supplied in the `./config/` directory (we use the volume mount to share data between host and docker filesystem)
@@ -32,3 +33,4 @@
     - gateway: `192.168.1.1`
 - Ensure that your host system is receiving Lidar data from the network. You can verify this using `sudo tcpdump -n -c30 -i <ADAPTER>`. You should see lines such as `14:34:58.823814 IP 192.168.1.203.6699 > 192.168.1.102.4499: UDP, length 1210` immediately.
 - *On Ubuntu, go to the network settings and make sure to have the respective Wired network enabled. If this is disabled, the Docker container won't receive packets, even if they appear in `tcpdump`!*
+- Keep in mind to check the correct sensor network ports! The `MSOP_TIMEOUT` error does not always trigger, even if you have sensors with the wrong ports connected! (This will result in no frames inside the calbration node.) 
