@@ -9,7 +9,7 @@ launch:
     name: "rslidar_sdk"
     # See here: https://github.com/RoboSense-LiDAR/rslidar_sdk/blob/b74b36bc71000ce27dc1cdc37f9fbf320e16a8e0/node/rslidar_sdk_node.cpp#L83
     # Only for ROS1 it seems to be hardcoded that the config path can be read from a ros param.
-    # But not for ROS2... So instead, we'll apply a link from /CONFIG to the rslidar code in the Dockerfile.
+    # But not for ROS2... So instead, we'll apply a link from /CONFIG/rslidar to the rslidar code in the Dockerfile.
     # param:
     # -
     #   name: "config_path"
