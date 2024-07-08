@@ -31,13 +31,20 @@ cp -r $REPO_DIR/$ROS_PACKAGE_PATH_IN_REPO $SRC_PATH
 
 # DOCKER BUILD
 sudo docker build --tag lidar ./build  # normal build with network
-# sudo docker build --pull=false --network=none  --tag lidar ./build  # build without network to enforce build caching
+
+# Alternative to build without network to enforce using build cache
+# sudo docker build --pull=false --network=none  --tag lidar ./build  
 
 # DOCKER RUN
 if [ -n "$DATA_DIR" ]
 then
     DATA_VOLUME_SWITCH="--volume $DATA_DIR:/DATA"
-fi 
-# sudo docker run --rm --name lidar1 -p 5599:5599/udp -p 4499:4499/udp $DATA_VOLUME_SWITCH --volume ./config:/ROS_WORKSPACE/rslidar_pkgs/rslidar_sdk/config/:ro -it lidar bash
-sudo   docker run --rm --name lidar1 --net host                        $DATA_VOLUME_SWITCH --volume ./config:/ROS_WORKSPACE/rslidar_pkgs/rslidar_sdk/config/:ro -it lidar bash
-# sudo docker run --rm --name lidar1 -p 6789:6789                      $DATA_VOLUME_SWITCH --volume ./config:/ROS_WORKSPACE/rslidar_pkgs/rslidar_sdk/config/:ro -it lidar bash
+fi
+
+sudo docker run \
+    --rm \
+    --name lidar1 \
+    --net host \
+    $DATA_VOLUME_SWITCH \
+    --volume ./config:/CONFIG:ro \
+    -it lidar

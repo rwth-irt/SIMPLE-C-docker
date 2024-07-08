@@ -1,0 +1,70 @@
+launch:
+
+# RSLIDAR SDK
+- node:
+    namespace: "rslidar_sdk"
+    pkg: "rslidar_sdk"
+    exec: "rslidar_sdk_node"
+    output: "screen"
+    name: "rslidar_sdk"
+    # See here: https://github.com/RoboSense-LiDAR/rslidar_sdk/blob/b74b36bc71000ce27dc1cdc37f9fbf320e16a8e0/node/rslidar_sdk_node.cpp#L83
+    # Only for ROS1 it seems to be hardcoded that the config path can be read from a ros param.
+    # But not for ROS2... So instead, we'll apply a link from /CONFIG to the rslidar code in the Dockerfile.
+    # param:
+    # -
+    #   name: "config_path"
+    #   value: "/CONFIG/rslidar_config.yaml"
+
+# ONLINE CALIBRATION
+- node:
+    namespace: "online_calibration"
+    pkg: "online_calibration"
+    exec: "main"
+    output: "screen"
+    name: "calibration"
+    param:
+    # It seems like we can not include single parameters *and* a parameter yaml file in a launch file...
+    # Specify sensors
+    -
+      name: "sensor_pairs"
+      value: "/rslidar_points_l,/rslidar_points_r"
+    -
+      name: "main_sensor"
+      value: "/rslidar_points_l"
+    # The following parameters are the ones from default_parameters.yaml TODO
+    -
+      name: "relative intensity threshold"
+      value: 0.7
+    -
+      name: "DBSCAN epsilon"
+      value: 0.4
+    -
+      name: "DBSCAN min samples"
+      value: 9
+    -
+      name: "maximum neighbor distance"
+      value: 0.4
+    -
+      name: "minimum velocity"
+      value: 0.05
+    -
+      name: "window size"
+      value: 8
+    -
+      name: "max. vector angle [deg]"
+      value: 80.0
+    -
+      name: "sample_rate_Hz"
+      value: 10.0
+    -
+      name: "outlier_mean_factor"
+      value: 3.0
+    -
+      name: "max_point_number_change_ratio"
+      value: 0.8
+    -
+      name: "normal_cosine_weight_share"
+      value: 0.5
+    -
+      name: "point_number_weight_share"
+      value: 0.5
