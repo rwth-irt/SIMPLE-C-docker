@@ -47,4 +47,4 @@ sudo docker run \
     --net host \
     $DATA_VOLUME_SWITCH \
     --volume ./config:/CONFIG:ro \
-    -it lidar
+    -it lidar $1
