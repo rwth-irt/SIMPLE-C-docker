@@ -21,7 +21,7 @@
 
 - The directory `./config/` contains configurations for all ROS nodes, as well as the ROS2 launch file. It is mounted as a Docker volume to `/CONFIG` in the container, which means that updating its contents is possible without *rebuilding* the container. (Note that ROS nodes (usually) have to be *restarted* for changes to take effect!)
 - The subdirectory `./config/rslidar` is linked to the RSLidar SDK's configuration directory inside the docker container. Therefore, find the RSLidar config in this directory, where Lidar network ports and topic names have to be set.
-- All ROS parameters for the calibration node are set in the ROS2 launch file `./config/launch.yaml`. **There is no automatic fallback or connection to the `default_parameters.yaml` file from the calibration repo!**
+- All ROS parameters for the calibration node are set in the ROS2 launch file `./config/launch.py`. **There is no automatic fallback or connection to the `default_parameters.yaml` file from the calibration repo!**
 
 ### Host Connection Setup
 
@@ -43,7 +43,7 @@
     - `--volume ./config:/CONFIG:ro` mount the config directory. (Linking the rslidar subdirectory is performed in the Dockerfile.)
     - A full docker run command could look like this: `sudo docker run --rm --name lidar1 --net host --volume ./config:/CONFIG:ro -it lidar`
 - To check whether packets are correctly forwarded to the container, or to debug the UDP ports, run `sudo docker exec -it lidar1 tcpdump -nc20` (in a different terminal). You should see lines such as `12:43:36.683623 IP 192.168.1.203.6699 > 172.17.0.2.4499: UDP, length 1210` immediately.
-- By default (see `./build/files/entrypoint.sh`), `./config/launch.yaml` is launched. You can overwrite this by building/starting the container manually and then running single nodes from different terminals. Find sample commands for this in `./commands.txt`.
+- By default (see `./build/files/entrypoint.sh`), `./config/launch.py` is launched. You can overwrite this by building/starting the container manually and then running single nodes from different terminals. Find sample commands for this in `./commands.txt`.
 
 ## Adding more ROS packages
 
@@ -51,4 +51,7 @@
 - It is of course possible to add further packages this way as well.
 - If you want to include packages whose source code can be built with a simple `colcon build` command, then move them into the `./build/files/ros_pkgs/` directory. The contents of it are copied into `/ROS_WORKSPACE/src/` before running `colcon build`.
 - (This is how the online calibration package is built. Its source is copied to `./build/files/ros_pkgs/` in the script `./rebuild.sh`.)
-- Remember to add new packages to `./config/launch.yaml`, the default ROS2 launch file, if they should be run automatically.
+- Remember to add new packages to `./config/launch.py`, the default ROS2 launch file, if they should be run automatically.
+
+## Web visualization
+The standard launch file will also start an HTTP server hosting the web visualization interface on port 8000. It is copied into the Docker image from `./build/files/index.html`. See the respective git repository for build instructions.
