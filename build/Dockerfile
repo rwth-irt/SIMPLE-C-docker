@@ -37,9 +37,13 @@ ADD ./files/ros_pkgs/ /ROS_WORKSPACE/src/
 WORKDIR /ROS_WORKSPACE
 RUN /bin/bash -c 'source /opt/ros/$ROS_DISTRO/setup.bash --; colcon build --packages-skip-build-finished'
 
+# Set up web frontend directory
+RUN mkdir /WEB_FRONTEND
+COPY ./files/index.html /WEB_FRONTEND/
+
 # Finalize docker image setup
 COPY ./files/entrypoint.sh /
 # overwrite entrypoint of ROS image to also source our workspace
 ENTRYPOINT ["/entrypoint.sh"]
 # launch ros package
-CMD ["ros2", "launch", "/CONFIG/launch.yaml"]
+CMD ["ros2", "launch", "/CONFIG/launch.py"]
