@@ -30,7 +30,7 @@ fi
 cp -r $REPO_DIR/$ROS_PACKAGE_PATH_IN_REPO $SRC_PATH
 
 # DOCKER BUILD
-sudo docker build --tag lidar ./build  # normal build with network
+sudo docker build --tag calibration_tool ./build  # normal build with network
 
 # Alternative to build without network to enforce using build cache
 # sudo docker build --pull=false --network=none  --tag lidar ./build  
@@ -43,8 +43,8 @@ fi
 
 sudo docker run \
     --rm \
-    --name lidar1 \
+    --name calibration_tool_1 \
     --net host \
     $DATA_VOLUME_SWITCH \
     --volume ./config:/CONFIG:ro \
-    -it lidar $1
+    -it calibration_tool $1

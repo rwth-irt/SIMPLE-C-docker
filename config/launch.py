@@ -16,8 +16,8 @@ def generate_launch_description():
             # It seems like we can not include individual parameters *and* a parameter yaml file in a launch file...
             {
                 # CALIBRATION SENSOR CONFIG
-                "sensor_pairs": "/rslidar_points_l,/rslidar_points_r",
-                "main_sensor": "/rslidar_points_l",
+                "sensor_pairs": "/rslidar_points,/rslidar_points_2",
+                "main_sensor": "/rslidar_points",
                 # CALIBRATION PARAMETERS
                 "relative intensity threshold": 0.7,
                 "DBSCAN epsilon": 0.4,

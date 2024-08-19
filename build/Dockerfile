@@ -29,7 +29,7 @@ RUN mkdir /CONFIG; rm -r /ROS_WORKSPACE/rslidar_pkgs/rslidar_sdk/config; ln -s /
 
 # Install further ROS packages (and possibly their dependencies)
 RUN apt-get update && \
-    apt-get install --no-install-recommends -y python3-pip python3-sklearn ros-$ROS_DISTRO-sensor-msgs-py
+    apt-get install --no-install-recommends -y python3-pip python3-sklearn ros-$ROS_DISTRO-sensor-msgs-py ros-$ROS_DISTRO-rosbag2-storage-mcap
 RUN pip install websockets
 ADD ./files/ros_pkgs/ /ROS_WORKSPACE/src/
 

@@ -3,35 +3,37 @@
 ## Installation
 
 - Install Docker. (Or an alternative such as podman. However, all following commands are given for Docker.)
-- Copy the `ros_lidar_docker/` working directory to your machine *and cd into it*.
+- Change directory into the Docker repo
 
 ## Building and running the docker container
 
 ### Automatic (re)build and run using the script `rebuild.sh`
 - The script will first copy the online calibration repository, then build the container and finally start it.
-- Export the environment variable `SRC_PATH` to the script to tell it from where to copy the online calibration repo. It has to point to the **top level** directory because it will copy the directory `$SRC_PATH/online_calibration` (which should be the ROS package).
-- You can set `DATA_DIR` to an arbitrary directory which will be mounted to the docker container's `/DATA` directory. Useful e.g. to persist/access rosbag files.
+- Set the mount environment for the online calibration repository in the docker container: `export REPO_DIR=<path to your repository directory>`
+- You can also mount a data directory to the docker container: `export DATA_DIR=<path to your data directory>`
 - For troubleshooting, see the details in the following sections about building/running manually.
-- To avoid starting the default launch file in the docker container, execute `./rebuild.sh bash`.
+- To avoid starting the default launch file in the docker container, execute `./rebuild.sh`.
+- You can start another terminal in the docker container using `sudo docker exec -it calibration_tool_1`
+- Everytime you start a new terminal, you have to source ROS: `source /opt/ros/humle/setup.bash`
 
 ### Building manually
 
 - Ensure you have access to the internet.
 - Put/copy/link the online calibration repository into the directory `./build/files/ros_pkgs`. (See also section *Adding more ROS packages*.)
-- Run `sudo docker build --tag lidar ./build/` (This will build an image based on the instructions in the Dockerfile.)
+- Run `sudo docker build --tag calibration_tool ./build/` (This will build an image based on the instructions in the Dockerfile.)
 - If APT errors (especially resolving URLs) occur during build, try to update & upgrade APT on the *host* system.
-- The convention used in the `rebuild.sh` script is to call the image `lidar`, and the container `lidar1`.
+- The convention used in the `rebuild.sh` script is to call the image `calibration_tool`, and the container `calibration_tool_1`.
 
 ### Running the container manually
 
 - The following is also automatically done in 
 - Ensure all configurations in the `./config/` directory are correct, see section above.
 - Run the container with the following settings:
-    - `--name lidar1` (convention for the container name, see section Build)
+    - `--name calibration_tool_1` (convention for the container name, see section Build)
     - `--net host` to use the host's network. Avois tedious port-forwarding.
     - `--volume ./config:/CONFIG:ro` mount the config directory. (Linking the rslidar subdirectory is performed in the Dockerfile.)
-    - A full docker run command could look like this: `sudo docker run --rm --name lidar1 --net host --volume ./config:/CONFIG:ro -it lidar`
-- To check whether packets are correctly forwarded to the container, or to debug the UDP ports, run `sudo docker exec -it lidar1 tcpdump -nc20` (in a different terminal). You should see lines such as `12:43:36.683623 IP 192.168.1.203.6699 > 172.17.0.2.4499: UDP, length 1210` immediately.
+    - A full docker run command could look like this: `sudo docker run --rm --name calibration_tool_1 --net host --volume ./config:/CONFIG:ro -it calibration_tool`
+- To check whether packets are correctly forwarded to the container, or to debug the UDP ports, run `sudo docker exec -it calibration_tool_1 tcpdump -nc20` (in a different terminal). You should see lines such as `12:43:36.683623 IP 192.168.1.203.6699 > 172.17.0.2.4499: UDP, length 1210` immediately.
 - By default (see `./build/files/entrypoint.sh`), `./config/launch.py` is launched. You can overwrite this by building/starting the container manually or running `./rebuild.sh bash` and then running single nodes from different terminals. Find sample commands for this in `./commands.txt`.
 
 ## Configuration
