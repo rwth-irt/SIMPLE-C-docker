@@ -1,4 +1,4 @@
-# Lidar driver/calibration in ROS using Docker
+# SIMPLEX: Uncertainty-aware Multi-LiDAR Extrinsic Calibration using a Simple Dynamic Target in Moving Feature-Sparse Environments <br><br> Docker Repository for Online Capability
 
 ## Installation
 

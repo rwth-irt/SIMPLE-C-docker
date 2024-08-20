@@ -16,7 +16,7 @@ def generate_launch_description():
             # It seems like we can not include individual parameters *and* a parameter yaml file in a launch file...
             {
             	# LOG PATH
-            	"log_path": "/DATA/log_Files",
+            	"log_path": "/DATA/log_files",
                 # CALIBRATION SENSOR CONFIG
                 "sensor_pairs": "/rslidar_points,/rslidar_points_2",
                 "main_sensor": "/rslidar_points",
