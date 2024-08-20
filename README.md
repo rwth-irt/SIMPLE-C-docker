@@ -10,7 +10,7 @@
 ### Automatic (re)build and run using the script `rebuild.sh`
 - The script will first copy the online calibration repository, then build the container and finally start it.
 - Set the mount environment for the online calibration repository in the docker container: `export REPO_DIR=<path to your repository directory>`
-- You can also mount a data directory to the docker container: `export DATA_DIR=<path to your data directory>`
+- Mount a data directory to the docker container: `export DATA_DIR=<path to your data directory>` (Log Files wil be stored)
 - For troubleshooting, see the details in the following sections about building/running manually.
 - To avoid starting the default launch file in the docker container, execute `./rebuild.sh`.
 - You can start another terminal in the docker container using `sudo docker exec -it calibration_tool_1`
@@ -41,6 +41,8 @@
 - The directory `./config/` contains configurations for all ROS nodes, as well as the ROS2 launch file. It is mounted as a Docker volume to `/CONFIG` in the container, which means that updating its contents is possible without *rebuilding* the container. (Note that ROS nodes (usually) have to be *restarted* for changes to take effect!)
 - The subdirectory `./config/rslidar` is linked to the RSLidar SDK's configuration directory inside the docker container. Therefore, find the RSLidar config in this directory, where Lidar network ports and topic names have to be set.
 - All ROS parameters for the calibration node are set in the ROS2 launch file `./config/launch.py`. **There is no automatic fallback or connection to the `default_parameters.yaml` file from the calibration repo!**
+- If you do not want to run the calibrator live but on ROS-bag data, please comment the Robosense Lidar SDK out
+- If you want to use different LiDAR sensors, comment the Robosense Lidar SKD out or replace by your LiDAR SDK/Driver or start your LiDAR nodes separately
 
 ## Host Connection Setup
 
