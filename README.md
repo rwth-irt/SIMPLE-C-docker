@@ -13,7 +13,7 @@
 - Mount a data directory to the docker container: `export DATA_DIR=<path to your data directory>` (Log Files wil be stored)
 - For troubleshooting, see the details in the following sections about building/running manually.
 - To avoid starting the default launch file in the docker container, execute `./rebuild.sh`.
-- You can start another terminal in the docker container using `sudo docker exec -it calibration_tool_1`
+- You can start another terminal in the docker container using `sudo docker exec -it calibration_tool_1 bash`
 - Everytime you start a new terminal, you have to source ROS: `source /opt/ros/humle/setup.bash`
 
 ### Building manually

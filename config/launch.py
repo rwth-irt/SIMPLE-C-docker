@@ -17,8 +17,8 @@ def generate_launch_description():
             {
             	# LOG PATH
             	"log_path": "/DATA/log_files",
-                # CALIBRATION SENSOR CONFIG
-                "sensor_pairs": "/rslidar_points,/rslidar_points_2",
+                # CALIBRATION SENSOR CONFIG: child,parent
+                "sensor_pairs": "/rslidar_points_2,/rslidar_points",
                 "main_sensor": "/rslidar_points",
                 # CALIBRATION PARAMETERS
                 "relative intensity threshold": 0.7,
@@ -31,19 +31,20 @@ def generate_launch_description():
                 "sample_rate_Hz": 10.0,
                 "outlier_mean_factor": 3.0,
                 "max_point_number_change_ratio": 0.8,
-                "normal_cosine_weight_share": 0.5,
-                "point_number_weight_share": 0.5,
+                "normal_cosine_weight": 0,
+                "point_number_weight": 0,
+                "gaussian_range_weight": 0,
             }
         ],
     )
 
-    rslidar_sdk_node = Node(
-        package="rslidar_sdk",
-        namespace="rslidar_sdk",
-        executable="rslidar_sdk_node",
-        output="both",
-        name="rslidar_sdk",
-    )
+    #rslidar_sdk_node = Node(
+    #    package="rslidar_sdk",
+    #    namespace="rslidar_sdk",
+    #    executable="rslidar_sdk_node",
+    #    output="both",
+    #    name="rslidar_sdk",
+    #)
 
     http_server = ExecuteProcess(
         cmd=["python3", "-m", "http.server", "--directory", "/WEB_FRONTEND"],
@@ -55,7 +56,7 @@ def generate_launch_description():
     return LaunchDescription(
         [
             online_calibration_node,
-            rslidar_sdk_node,
+            #rslidar_sdk_node,
             http_server,
         ]
     )
