@@ -16,12 +16,15 @@ RUN git clone https://github.com/RoboSense-LiDAR/rslidar_msg.git
 # instead of editing the files (e.g. using sed), we use modified copies.
 # (TODO: The copies might eventually be outdated!)
 COPY ./files/CMakeLists.txt ./rslidar_sdk/
+
 WORKDIR rslidar_sdk
+
 RUN git submodule init && \
-    git submodule update && \
-    mv package_ros2.xml package.xml
+    git submodule update
+
 # build RSLidar SDK (to allow for better docker caching when debugging other packages)
 WORKDIR /ROS_WORKSPACE
+
 RUN /bin/bash -c 'source /opt/ros/$ROS_DISTRO/setup.bash --; colcon build'
 # link /CONFIG/rslidar to rslidar's config directory so that it can read its config file.
 # (See also comment in launch.yaml about this.)
@@ -35,6 +38,7 @@ ADD ./files/ros_pkgs/ /ROS_WORKSPACE/src/
 
 # Build those packages
 WORKDIR /ROS_WORKSPACE
+
 RUN /bin/bash -c 'source /opt/ros/$ROS_DISTRO/setup.bash --; colcon build --packages-skip-build-finished'
 
 # Set up web frontend directory
