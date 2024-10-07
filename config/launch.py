@@ -35,6 +35,8 @@ def generate_launch_description():
                 "normal_cosine_weight": 0,
                 "point_number_weight": 0,
                 "gaussian_range_weight": 0,
+                "convergence_threshold": [0.02, 0.02, 0.1],
+                "minimum_iterations_until_convergence": 50,
             }
         ],
     )
