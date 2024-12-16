@@ -64,4 +64,4 @@
 - Remember to add new packages to `./config/launch.py`, the default ROS2 launch file, if they should be run automatically.
 
 ## Web visualization
-The standard launch file will also start an HTTP server hosting the web visualization interface on port 8000. It is copied into the Docker image from `./build/files/index.html`. See the respective [web-visualization](https://git-ce.rwth-aachen.de/g-nav-mob-irt/projects/galileonautic2plus/calibration/simple-c/web_visualization) git repository for build instructions.
+The standard launch file will also start an HTTP server hosting the web visualization interface on port 8000. It is copied into the Docker image from `./build/files/index.html`. See the respective [web-visualization](https://github.com/rwth-irt/SIMPLE-C-web_visualization.git) git repository for build instructions.
