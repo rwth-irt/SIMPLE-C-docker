@@ -1,0 +1,27 @@
+COMMANDS FOR TESTING IN DOCKER CONTAINER
+----------------------------------------
+The docker container should have the label calibration_tool_1 and should be running. (Run rebuild.sh to build and run!)
+
+
+
+RUN CALIBRATION
+-------------------------------
+sudo docker exec -it calibration_tool_1 bash -c 'source /opt/ros/$ROS_DISTRO/setup.bash && source /ROS_WORKSPACE/install/setup.bash && ros2 run online_calibration main --ros-args --params-file /ROS_WORKSPACE/src/online_calibration/default_parameters.yaml -p sensor_pairs:="/rslidar_points_l,/rslidar_points_r" -p main_sensor:="/rslidar_points_l"'
+
+
+
+PLAY A ROSBAG
+-------------------------------
+sudo docker exec -it calibration_tool_1 bash -c 'source /opt/ros/humble/setup.bash ; ros2 bag play /DATA/test_calib_20240429/val1_ros2/val1_ros2.db3'
+
+
+
+RUN RSLIDAR DRIVER
+-------------------------------
+sudo docker exec -it calibration_tool_1 bash -c 'source /opt/ros/$ROS_DISTRO/setup.bash && source /ROS_WORKSPACE/install/setup.bash && ros2 launch rslidar_sdk start.py'
+
+
+
+RUN TCPDUMP
+--------------------------------
+sudo docker exec -it calibration_tool_1 tcpdump -nc20
