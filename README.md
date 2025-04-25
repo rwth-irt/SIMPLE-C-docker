@@ -1,4 +1,4 @@
-# SIMPLE-C: Uncertainty-aware Multi-LiDAR Extrinsic Calibration using a Simple Dynamic Target in Moving Feature-Sparse Environments <br><br> Docker Repository for Easy Online Capability
+# SIMPLE-C Docker
 
 ## Installation
 
